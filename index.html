@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hazel & Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@200;300;400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #F4F0EA;
+      --text:         #19150F;
+      --muted:        #695E55;
+      --subtle:       #A0948A;
+      --purple:       #3B2D6D;
+      --purple-mid:   #4A3B82;
+      --purple-dark:  #2A2050;
+      --gold:         #B8946A;
+      --gold-light:   #D6C8B8;
+      --kakao:        #FEE500;
+      --kakao-dark:   #EDD600;
+    }
+
+    @keyframes pageFade {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: pageFade 0.9s ease forwards;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 430px;
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    /* ─────────────────────────────────
+       HEADER
+    ───────────────────────────────── */
+
+    .header {
+      position: relative;
+      background: var(--purple);
+      text-align: center;
+      padding: 76px 32px 56px;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%,
+        rgba(255,255,255,0.06) 0%,
+        transparent 70%);
+      pointer-events: none;
+    }
+
+    .brand {
+      position: relative;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 46px;
+      letter-spacing: 0.22em;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+
+    .brand-rule {
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.55;
+      margin: 24px auto 20px;
+    }
+
+    .tagline {
+      position: relative;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 15.5px;
+      letter-spacing: 0.06em;
+      color: rgba(255, 255, 255, 0.42);
+    }
+
+
+    /* ─────────────────────────────────
+       ① 프로필
+    ───────────────────────────────── */
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 44px 32px 60px;
+    }
+
+    .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold-light);
+      overflow: hidden;
+      background: #FFFFFF;
+      box-shadow: 0 12px 48px rgba(59, 45, 109, 0.1);
+      margin-bottom: 30px;
+      flex-shrink: 0;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 52% 38%;
+      mix-blend-mode: multiply;
+    }
+
+    .profile-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 24px;
+      letter-spacing: 0.14em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .profile-bio {
+      font-size: 13px;
+      font-weight: 200;
+      line-height: 2.15;
+      color: var(--muted);
+      text-align: center;
+      max-width: 268px;
+      word-break: keep-all;
+      letter-spacing: 0.015em;
+    }
+
+
+    /* ─────────────────────────────────
+       섹션 구분선
+    ───────────────────────────────── */
+
+    .rule {
+      width: 100%;
+      height: 1px;
+      background: var(--gold-light);
+      opacity: 0.7;
+    }
+
+
+    /* ─────────────────────────────────
+       ② 카카오 오픈톡
+    ───────────────────────────────── */
+
+    .kakao-section {
+      width: 100%;
+      padding: 56px 32px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .kakao-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 28px;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .kakao-sub {
+      font-size: 12px;
+      font-weight: 200;
+      color: var(--subtle);
+      letter-spacing: 0.04em;
+      margin-bottom: 36px;
+      line-height: 1.8;
+    }
+
+    .kakao-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 340px;
+      padding: 17px 28px;
+      background: var(--kakao);
+      text-decoration: none;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      color: #1A1200;
+      transition: background 0.22s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .kakao-btn:hover { background: var(--kakao-dark); }
+
+    .kakao-icon {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+
+    /* ─────────────────────────────────
+       ③ 무료 자료
+    ───────────────────────────────── */
+
+    .download-section {
+      width: 100%;
+      padding: 56px 32px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .download-card {
+      width: 100%;
+      max-width: 350px;
+      border: 1px solid var(--gold-light);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .download-body {
+      padding: 32px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .download-tag {
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple);
+      border: 1px solid var(--purple);
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 3px 10px 2px;
+      opacity: 0.7;
+    }
+
+    .download-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      line-height: 1.45;
+      word-break: keep-all;
+    }
+
+    .download-desc {
+      font-size: 12.5px;
+      font-weight: 200;
+      color: var(--muted);
+      line-height: 1.9;
+      letter-spacing: 0.01em;
+      word-break: keep-all;
+    }
+
+    .download-foot {
+      border-top: 1px solid var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 28px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: var(--purple);
+      transition: color 0.2s ease;
+    }
+
+    .download-foot:hover { color: var(--purple-dark); }
+
+    .download-arrow {
+      transition: transform 0.2s ease;
+    }
+
+    .download-foot:hover .download-arrow { transform: translateX(4px); }
+
+
+    /* ─────────────────────────────────
+       ④ 링크
+    ───────────────────────────────── */
+
+    .links-section {
+      width: 100%;
+      padding: 0 32px 88px;
+    }
+
+    .links-list {
+      border-top: 1px solid var(--gold-light);
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--gold-light);
+      text-decoration: none;
+      color: var(--text);
+      transition: color 0.2s ease;
+      gap: 16px;
+    }
+
+    .link-item:hover { color: var(--purple); }
+
+    .link-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .link-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      color: var(--gold-light);
+      transition: color 0.2s ease;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .link-item:hover .link-mark { color: var(--gold); }
+
+    .link-info {}
+
+    .link-label {
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+    }
+
+    .link-sub {
+      font-size: 11px;
+      font-weight: 200;
+      color: var(--subtle);
+      letter-spacing: 0.04em;
+      margin-top: 3px;
+    }
+
+    .link-arrow {
+      font-size: 14px;
+      color: var(--gold-light);
+      flex-shrink: 0;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .link-item:hover .link-arrow {
+      transform: translateX(4px);
+      color: var(--gold);
+    }
+
+
+    /* ─────────────────────────────────
+       FOOTER
+    ───────────────────────────────── */
+
+    .footer {
+      text-align: center;
+      padding-bottom: 56px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 11.5px;
+      letter-spacing: 0.18em;
+      color: var(--gold-light);
+    }
+
+  </style>
+</head>
+<body>
+<div class="page">
+
+
+  <!-- ① 프로필 -->
+  <header class="header">
+    <div class="brand">Hazel & Co.</div>
+    <div class="brand-rule"></div>
+    <p class="tagline">네 친구가 편안해지는 곳</p>
+  </header>
+
+  <section class="profile">
+    <div class="avatar">
+      <img src="cocoandme.jpg" alt="Sue와 Coco">
+    </div>
+    <p class="profile-name">Sue</p>
+    <p class="profile-bio">
+      강아지 입장에서 먼저 생각해요.<br>
+      낯선 곳, 낯선 손길이 얼마나 긴장될지.<br>
+      그래서 먼저 마당에서 뛰어놀게 하고,<br>
+      천천히 시작해요.
+    </p>
+  </section>
+
+  <div class="rule"></div>
+
+
+  <!-- ② 카카오 오픈톡 -->
+  <section class="kakao-section">
+    <p class="eyebrow">예약 · 문의</p>
+    <h2 class="kakao-heading">카카오 오픈톡으로<br>편하게 연락주세요</h2>
+    <p class="kakao-sub">[운영 시간 및 예약 가능 일정]</p>
+    <a href="[카카오 오픈톡 URL]" class="kakao-btn">
+      <svg class="kakao-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.569 1.397 4.836 3.534 6.258L4.5 21l4.547-2.498A11.6 11.6 0 0 0 12 18c5.523 0 10-3.477 10-7.5S17.523 3 12 3z"/>
+      </svg>
+      카카오 오픈톡으로 문의하기
+    </a>
+  </section>
+
+  <div class="rule"></div>
+
+
+  <!-- ③ 무료 자료 -->
+  <section class="download-section">
+    <p class="eyebrow" style="margin-bottom: 20px;">Free Resource</p>
+    <div class="download-card">
+      <div class="download-body">
+        <span class="download-tag">무료</span>
+        <p class="download-title">[무료 자료 제목]</p>
+        <p class="download-desc">
+          [자료에 대한 한두 줄 설명.<br>
+          어떤 도움이 되는지 담백하게.]
+        </p>
+      </div>
+      <a href="[다운로드 URL]" class="download-foot">
+        <span>무료로 받아보기</span>
+        <span class="download-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+
+  <!-- ④ 링크 4개 -->
+  <section class="links-section" style="padding-top: 0;">
+    <nav class="links-list">
+
+      <a href="[블로그 URL]" class="link-item">
+        <div class="link-left">
+          <span class="link-mark">✦</span>
+          <div class="link-info">
+            <p class="link-label">블로그</p>
+            <p class="link-sub">강아지 케어 · 미용 이야기</p>
+          </div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <a href="[인스타그램 URL]" class="link-item">
+        <div class="link-left">
+          <span class="link-mark">✦</span>
+          <div class="link-info">
+            <p class="link-label">인스타그램</p>
+            <p class="link-sub">@[인스타그램 계정]</p>
+          </div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <a href="[유튜브 URL]" class="link-item">
+        <div class="link-left">
+          <span class="link-mark">✦</span>
+          <div class="link-info">
+            <p class="link-label">유튜브</p>
+            <p class="link-sub">그루밍 영상 · 케어 팁</p>
+          </div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <a href="[후기 URL]" class="link-item">
+        <div class="link-left">
+          <span class="link-mark">✦</span>
+          <div class="link-info">
+            <p class="link-label">후기 & 스토리</p>
+            <p class="link-sub">Coco · Hazel · 그리고 친구들</p>
+          </div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+    </nav>
+  </section>
+
+
+  <footer class="footer">© Hazel & Co.</footer>
+
+
+</div>
+</body>
+</html>
