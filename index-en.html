@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hazel & Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #F4F0EA;
+      --text:         #19150F;
+      --muted:        #695E55;
+      --subtle:       #A0948A;
+      --purple:       #3B2D6D;
+      --purple-mid:   #4A3B82;
+      --purple-dark:  #2A2050;
+      --gold:         #B8946A;
+      --gold-light:   #D6C8B8;
+      --kakao:        #FEE500;
+      --kakao-dark:   #EDD600;
+    }
+
+    @keyframes pageFade {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: pageFade 0.9s ease forwards;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 430px;
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    /* ─────────────────────────────────
+       HEADER
+    ───────────────────────────────── */
+
+    .header {
+      position: relative;
+      background: var(--purple);
+      text-align: center;
+      padding: 76px 32px 56px;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%,
+        rgba(255,255,255,0.06) 0%,
+        transparent 70%);
+      pointer-events: none;
+    }
+
+    .brand {
+      position: relative;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 46px;
+      letter-spacing: 0.22em;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+
+    .brand-rule {
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.55;
+      margin: 24px auto 20px;
+    }
+
+    .tagline {
+      position: relative;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 15.5px;
+      letter-spacing: 0.06em;
+      color: rgba(255, 255, 255, 0.42);
+    }
+
+
+    /* ─────────────────────────────────
+       ① PROFILE
+    ───────────────────────────────── */
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 44px 32px 60px;
+    }
+
+    .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold-light);
+      overflow: hidden;
+      background: #FFFFFF;
+      box-shadow: 0 12px 48px rgba(59, 45, 109, 0.1);
+      margin-bottom: 30px;
+      flex-shrink: 0;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 52% 38%;
+      mix-blend-mode: multiply;
+    }
+
+    .profile-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 24px;
+      letter-spacing: 0.14em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .profile-bio {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 2.1;
+      color: var(--muted);
+      text-align: center;
+      max-width: 268px;
+      letter-spacing: 0.01em;
+    }
+
+
+    /* ─────────────────────────────────
+       DIVIDER
+    ───────────────────────────────── */
+
+    .rule {
+      width: 100%;
+      height: 1px;
+      background: var(--gold-light);
+      opacity: 0.7;
+    }
+
+
+    /* ─────────────────────────────────
+       ② CONTACT
+    ───────────────────────────────── */
+
+    .kakao-section {
+      width: 100%;
+      padding: 56px 32px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .kakao-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 28px;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .kakao-sub {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--subtle);
+      letter-spacing: 0.04em;
+      margin-bottom: 36px;
+      line-height: 1.8;
+    }
+
+    .kakao-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 340px;
+      padding: 17px 28px;
+      background: var(--kakao);
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      color: #1A1200;
+      transition: background 0.22s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .kakao-btn:hover { background: var(--kakao-dark); }
+
+    .kakao-icon {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+
+    /* ─────────────────────────────────
+       ③ LINKS
+    ───────────────────────────────── */
+
+    .links-section {
+      width: 100%;
+      padding: 0 32px 88px;
+    }
+
+    .links-list {
+      border-top: 1px solid var(--gold-light);
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--gold-light);
+      text-decoration: none;
+      color: var(--text);
+      transition: color 0.2s ease;
+      gap: 16px;
+    }
+
+    .link-item:hover { color: var(--purple); }
+
+    .link-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .link-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      color: var(--gold-light);
+      transition: color 0.2s ease;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .link-item:hover .link-mark { color: var(--gold); }
+
+    .link-info {}
+
+    .link-label {
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+    }
+
+    .link-sub {
+      font-size: 11px;
+      font-weight: 200;
+      color: var(--subtle);
+      letter-spacing: 0.04em;
+      margin-top: 3px;
+    }
+
+    .link-arrow {
+      font-size: 14px;
+      color: var(--gold-light);
+      flex-shrink: 0;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .link-item:hover .link-arrow {
+      transform: translateX(4px);
+      color: var(--gold);
+    }
+
+
+    /* ─────────────────────────────────
+       FOOTER
+    ───────────────────────────────── */
+
+    .footer {
+      text-align: center;
+      padding-bottom: 56px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 11.5px;
+      letter-spacing: 0.18em;
+      color: var(--gold-light);
+    }
+
+  </style>
+</head>
+<body>
+<div class="page">
+
+
+  <!-- ① PROFILE -->
+  <header class="header">
+    <div class="brand">Hazel & Co.</div>
+    <div class="brand-rule"></div>
+    <p class="tagline">where your dog feels at ease</p>
+  </header>
+
+  <section class="profile">
+    <div class="avatar">
+      <img src="cocoandme.jpg" alt="Sue and Coco">
+    </div>
+    <p class="profile-name">Sue</p>
+    <p class="profile-bio">
+      I always think from your dog's side first.<br>
+      A new place, a new pair of hands —<br>
+      that's a lot to take in.<br>
+      So we play in the yard before we begin,<br>
+      and take it slow.
+    </p>
+  </section>
+
+  <div class="rule"></div>
+
+
+  <!-- ② CONTACT -->
+  <section class="kakao-section">
+    <p class="eyebrow">Booking · Enquiries</p>
+    <h2 class="kakao-heading">Send us a message<br>on KakaoTalk</h2>
+    <p class="kakao-sub">Mon–Sat 10:00–14:30 · Closed Sundays</p>
+    <a href="https://pf.kakao.com/_lefjX" class="kakao-btn" target="_blank" rel="noopener">
+      <svg class="kakao-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.569 1.397 4.836 3.534 6.258L4.5 21l4.547-2.498A11.6 11.6 0 0 0 12 18c5.523 0 10-3.477 10-7.5S17.523 3 12 3z"/>
+      </svg>
+      Message us on KakaoTalk
+    </a>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ③ LINKS -->
+  <section class="links-section" style="padding-top: 0;">
+    <nav class="links-list">
+
+      <a href="https://www.instagram.com/hazelco_spa" class="link-item" target="_blank" rel="noopener">
+        <div class="link-left">
+          <span class="link-mark">✦</span>
+          <div class="link-info">
+            <p class="link-label">Instagram</p>
+            <p class="link-sub">@hazelco_spa</p>
+          </div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+    </nav>
+  </section>
+
+
+  <footer class="footer">© Hazel & Co.</footer>
+
+
+</div>
+</body>
+</html>
