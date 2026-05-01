@@ -3,45 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hazel & Co.</title>
+  <title>Hazel & Co. — 강아지 그루밍 · 내추럴 케어</title>
+  <meta name="description" content="유럽 그루머 자격증 보유 · 가위컷 전문 · 1:1 프라이빗 케어. 강아지가 편안해야 미용도 잘 돼요.">
+  <meta property="og:title" content="Hazel & Co.">
+  <meta property="og:description" content="유럽 그루머 자격증 보유 · 가위컷 전문 · 1:1 프라이빗 케어">
+  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@200;300;400&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
   <style>
+
+    /* ─────────────────────────────────────
+       0. Reset & Tokens
+    ───────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:           #F4F0EA;
-      --text:         #19150F;
-      --muted:        #695E55;
-      --subtle:       #A0948A;
-      --purple:       #3B2D6D;
-      --purple-mid:   #4A3B82;
-      --purple-dark:  #2A2050;
-      --gold:         #B8946A;
-      --gold-light:   #D6C8B8;
-      --kakao:        #FEE500;
-      --kakao-dark:   #EDD600;
+      --bg:          #F4F0EA;
+      --text:        #19150F;
+      --muted:       #695E55;
+      --subtle:      #A0948A;
+      --purple:      #3B2D6D;
+      --purple-dk:   #2A2050;
+      --purple-glow: rgba(59, 45, 109, .18);
+      --gold:        #B8946A;
+      --gold-lt:     #D6C8B8;
+      --gold-faint:  rgba(184, 148, 106, .14);
+      --spring:      cubic-bezier(.16, 1, .3, 1);
     }
 
-    @keyframes pageFade {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
+    /* ─────────────────────────────────────
+       1. Base
+    ───────────────────────────────────── */
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', system-ui, -apple-system, sans-serif;
       font-weight: 300;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      animation: pageFade 0.9s ease forwards;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Subtle grain — gives the page an organic, non-digital warmth */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+      opacity: .028;
+      pointer-events: none;
+      z-index: 9999;
     }
 
     .page {
@@ -52,25 +70,66 @@
     }
 
 
-    /* ─────────────────────────────────
-       HEADER
-    ───────────────────────────────── */
+    /* ─────────────────────────────────────
+       2. Animations
+    ───────────────────────────────────── */
 
+    /* Page entrance (above-fold elements) */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); filter: blur(4px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0);   }
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(.90); filter: blur(4px); }
+      to   { opacity: 1; transform: scale(1);   filter: blur(0);   }
+    }
+
+    .e1 { animation: fadeUp .9s var(--spring) .06s both; }
+    .e2 { animation: popIn  .8s var(--spring) .22s both; }
+    .e3 { animation: fadeUp .8s var(--spring) .36s both; }
+    .e4 { animation: fadeUp .8s var(--spring) .48s both; }
+    .e5 { animation: fadeUp .8s var(--spring) .58s both; }
+
+    /* Scroll-reveal (below-fold elements) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(3px);
+      transition:
+        opacity   .8s var(--spring),
+        transform .8s var(--spring),
+        filter    .8s var(--spring);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+    .reveal.in.d1 { transition-delay: .08s; }
+    .reveal.in.d2 { transition-delay: .18s; }
+    .reveal.in.d3 { transition-delay: .28s; }
+
+
+    /* ─────────────────────────────────────
+       3. Header
+    ───────────────────────────────────── */
     .header {
       position: relative;
       background: var(--purple);
       text-align: center;
-      padding: 76px 32px 56px;
+      padding: 76px 32px 92px;
       overflow: hidden;
     }
 
+    /* Layered light: top highlight + subtle bottom warmth */
     .header::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%,
-        rgba(255,255,255,0.06) 0%,
-        transparent 70%);
+      background:
+        radial-gradient(ellipse 90% 55% at 50% -8%,  rgba(255,255,255,.08) 0%, transparent 62%),
+        radial-gradient(ellipse 60% 35% at 15% 110%, rgba(184,148,106,.05) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 35% at 85% 110%, rgba(184,148,106,.05) 0%, transparent 65%);
       pointer-events: none;
     }
 
@@ -79,17 +138,37 @@
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
       font-size: 46px;
-      letter-spacing: 0.22em;
-      color: #FFFFFF;
+      letter-spacing: .24em;
+      color: #fff;
       line-height: 1;
     }
 
-    .brand-rule {
-      width: 28px;
+    /* Three-dot ornament with flanking lines */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin: 22px auto 18px;
+    }
+    .orn-line {
+      width: 20px;
       height: 1px;
       background: var(--gold);
-      opacity: 0.55;
-      margin: 24px auto 20px;
+      opacity: .42;
+    }
+    .orn-dot {
+      width: 3.5px;
+      height: 3.5px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: .55;
+    }
+    .orn-dot.lg {
+      width: 4.5px;
+      height: 4.5px;
+      opacity: .65;
+      box-shadow: 0 0 8px rgba(184,148,106,.5);
     }
 
     .tagline {
@@ -97,36 +176,54 @@
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       font-weight: 300;
-      font-size: 15.5px;
-      letter-spacing: 0.06em;
-      color: rgba(255, 255, 255, 0.42);
+      font-size: 14.5px;
+      letter-spacing: .065em;
+      color: rgba(255,255,255,.37);
     }
 
 
-    /* ─────────────────────────────────
-       ① 프로필
-    ───────────────────────────────── */
-
+    /* ─────────────────────────────────────
+       4. Profile
+    ───────────────────────────────────── */
     .profile {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 44px 32px 60px;
+      padding: 0 32px 66px;
     }
 
-    .avatar {
-      width: 160px;
-      height: 160px;
+    /* Gradient ring: conic gradient creates a subtle shimmer */
+    .avatar-shell {
+      width: 152px;
+      height: 152px;
       border-radius: 50%;
-      border: 1.5px solid var(--gold-light);
-      overflow: hidden;
-      background: #FFFFFF;
-      box-shadow: 0 12px 48px rgba(59, 45, 109, 0.1);
-      margin-bottom: 30px;
+      padding: 1.5px;
+      background: conic-gradient(
+        from 120deg,
+        var(--gold-lt) 0%,
+        rgba(214,200,184,.35) 35%,
+        var(--gold-lt) 65%,
+        rgba(214,200,184,.35) 85%,
+        var(--gold-lt) 100%
+      );
+      box-shadow:
+        0 0  0 1px rgba(184,148,106,.12),
+        0 18px 60px var(--purple-glow),
+        0  6px 20px rgba(0,0,0,.07);
+      margin-top: -76px;
+      margin-bottom: 28px;
       flex-shrink: 0;
     }
 
-    .avatar img {
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #faf7f2;
+    }
+
+    .avatar-inner img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -138,42 +235,84 @@
       font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
       font-size: 24px;
-      letter-spacing: 0.14em;
+      letter-spacing: .16em;
       color: var(--text);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .profile-bio {
-      font-size: 13px;
-      font-weight: 200;
-      line-height: 2.15;
+      font-size: 12.5px;
+      font-weight: 300;
+      line-height: 2;
       color: var(--muted);
       text-align: center;
-      max-width: 268px;
+      max-width: 258px;
+      letter-spacing: .012em;
       word-break: keep-all;
-      letter-spacing: 0.015em;
+    }
+
+    /* Stats row — adapted from Modern Structure, reskinned to Warm Editorial palette */
+    .profile-stats {
+      display: flex;
+      align-items: stretch;
+      margin-top: 26px;
+      width: 100%;
+      max-width: 286px;
+      border: 1px solid rgba(214,200,184,.75);
+    }
+
+    .stat {
+      flex: 1;
+      text-align: center;
+      padding: 15px 14px 13px;
+    }
+
+    .stat-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 17.5px;
+      letter-spacing: .04em;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-sub {
+      font-size: 8.5px;
+      font-weight: 400;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 5px;
+    }
+
+    .stat-divider {
+      width: 1px;
+      background: rgba(214,200,184,.75);
+      flex-shrink: 0;
     }
 
 
-    /* ─────────────────────────────────
-       섹션 구분선
-    ───────────────────────────────── */
-
+    /* ─────────────────────────────────────
+       5. Divider
+    ───────────────────────────────────── */
     .rule {
-      width: 100%;
       height: 1px;
-      background: var(--gold-light);
-      opacity: 0.7;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(214,200,184,.85) 18%,
+        rgba(214,200,184,.85) 82%,
+        transparent 100%
+      );
+      margin: 0 32px;
     }
 
 
-    /* ─────────────────────────────────
-       ② 카카오 오픈톡
-    ───────────────────────────────── */
-
-    .kakao-section {
-      width: 100%;
-      padding: 56px 32px 60px;
+    /* ─────────────────────────────────────
+       6. CTA Section
+    ───────────────────────────────────── */
+    .cta {
+      padding: 64px 32px 68px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -182,170 +321,116 @@
 
     .eyebrow {
       font-size: 9px;
-      font-weight: 300;
-      letter-spacing: 0.28em;
-      color: var(--gold);
+      font-weight: 400;
+      letter-spacing: .36em;
       text-transform: uppercase;
-      margin-bottom: 22px;
+      color: var(--gold);
+      margin-bottom: 20px;
     }
 
-    .kakao-heading {
+    .cta-head {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
       font-size: 28px;
-      letter-spacing: 0.03em;
+      letter-spacing: .02em;
       color: var(--text);
       line-height: 1.55;
-      margin-bottom: 10px;
+      margin-bottom: 9px;
+      word-break: keep-all;
+      text-wrap: balance;
     }
 
-    .kakao-sub {
-      font-size: 12px;
+    .cta-sub {
+      font-size: 11.5px;
       font-weight: 200;
       color: var(--subtle);
-      letter-spacing: 0.04em;
+      letter-spacing: .09em;
       margin-bottom: 36px;
-      line-height: 1.8;
     }
 
-    .kakao-btn {
-      display: flex;
+    .cta-btn {
+      position: relative;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
       width: 100%;
-      max-width: 340px;
-      padding: 17px 28px;
+      max-width: 348px;
+      padding: 21px 28px;
       background: var(--purple);
+      color: #fff;
       text-decoration: none;
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', sans-serif;
       font-size: 13px;
       font-weight: 400;
-      letter-spacing: 0.07em;
-      color: #FFFFFF;
-      transition: background 0.22s ease;
-      cursor: pointer;
-      border: none;
+      letter-spacing: .09em;
+      overflow: hidden;
+      transition:
+        background  .45s var(--spring),
+        transform   .45s var(--spring),
+        box-shadow  .45s var(--spring);
     }
 
-    .kakao-btn:hover { background: var(--purple-dark); }
-
-    .kakao-icon {
-      width: 17px;
-      height: 17px;
-      flex-shrink: 0;
-      opacity: 0.8;
+    /* Inset shine on top edge */
+    .cta-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.06) 0%, transparent 50%);
+      pointer-events: none;
     }
 
-
-    /* ─────────────────────────────────
-       ③ 무료 자료
-    ───────────────────────────────── */
-
-    .download-section {
-      width: 100%;
-      padding: 56px 32px 60px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .cta-btn:hover {
+      background: var(--purple-dk);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 44px var(--purple-glow);
     }
 
-    .download-card {
-      width: 100%;
-      max-width: 350px;
-      border: 1px solid var(--gold-light);
-      display: flex;
-      flex-direction: column;
+    .cta-btn:active {
+      transform: translateY(0) scale(.98);
+      box-shadow: 0 4px 16px var(--purple-glow);
     }
 
-    .download-body {
-      padding: 32px 28px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .cta-btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
     }
 
-    .download-tag {
-      font-size: 9px;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--purple);
-      border: 1px solid var(--purple);
-      display: inline-flex;
-      align-self: flex-start;
-      padding: 3px 10px 2px;
-      opacity: 0.7;
-    }
+    .btn-icon { flex-shrink: 0; }
 
-    .download-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      font-size: 22px;
-      letter-spacing: 0.02em;
-      color: var(--text);
-      line-height: 1.45;
-      word-break: keep-all;
+    .btn-arr {
+      font-size: 14px;
+      transition: transform .45s var(--spring);
     }
+    .cta-btn:hover .btn-arr { transform: translateX(4px); }
 
-    .download-desc {
-      font-size: 12.5px;
-      font-weight: 200;
-      color: var(--muted);
-      line-height: 1.9;
-      letter-spacing: 0.01em;
-      word-break: keep-all;
-    }
 
-    .download-foot {
-      border-top: 1px solid var(--gold-light);
+    /* ─────────────────────────────────────
+       7. Links
+    ───────────────────────────────────── */
+    .links { padding: 0 32px 92px; }
+
+    .link-list { border-top: 1px solid rgba(214,200,184,.7); }
+
+    .link-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 15px 28px;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 300;
-      letter-spacing: 0.1em;
-      color: var(--purple);
-      transition: color 0.2s ease;
-    }
-
-    .download-foot:hover { color: var(--purple-dark); }
-
-    .download-arrow {
-      transition: transform 0.2s ease;
-    }
-
-    .download-foot:hover .download-arrow { transform: translateX(4px); }
-
-
-    /* ─────────────────────────────────
-       ④ 링크
-    ───────────────────────────────── */
-
-    .links-section {
-      width: 100%;
-      padding: 0 32px 88px;
-    }
-
-    .links-list {
-      border-top: 1px solid var(--gold-light);
-    }
-
-    .link-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--gold-light);
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(214,200,184,.7);
       text-decoration: none;
       color: var(--text);
-      transition: color 0.2s ease;
       gap: 16px;
+      transition: color .3s ease;
     }
 
-    .link-item:hover { color: var(--purple); }
+    .link-row:hover { color: var(--purple); }
+
+    .link-row:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
 
     .link-left {
       display: flex;
@@ -353,58 +438,54 @@
       gap: 16px;
     }
 
-    .link-mark {
+    .link-gem {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 13px;
-      color: var(--gold-light);
-      transition: color 0.2s ease;
-      line-height: 1;
+      font-size: 11px;
+      color: var(--gold-lt);
       flex-shrink: 0;
+      transition: color .3s ease;
     }
+    .link-row:hover .link-gem { color: var(--gold); }
 
-    .link-item:hover .link-mark { color: var(--gold); }
-
-    .link-info {}
-
-    .link-label {
+    .link-name {
       font-size: 13px;
       font-weight: 300;
-      letter-spacing: 0.06em;
+      letter-spacing: .07em;
     }
 
-    .link-sub {
+    .link-handle {
       font-size: 11px;
       font-weight: 200;
       color: var(--subtle);
-      letter-spacing: 0.04em;
+      letter-spacing: .04em;
       margin-top: 3px;
     }
 
-    .link-arrow {
-      font-size: 14px;
-      color: var(--gold-light);
+    .link-arr {
+      font-size: 13px;
+      color: var(--gold-lt);
       flex-shrink: 0;
-      transition: transform 0.2s ease, color 0.2s ease;
+      transition:
+        transform .4s var(--spring),
+        color     .3s ease;
     }
-
-    .link-item:hover .link-arrow {
-      transform: translateX(4px);
+    .link-row:hover .link-arr {
+      transform: translateX(5px);
       color: var(--gold);
     }
 
 
-    /* ─────────────────────────────────
-       FOOTER
-    ───────────────────────────────── */
-
+    /* ─────────────────────────────────────
+       8. Footer
+    ───────────────────────────────────── */
     .footer {
       text-align: center;
       padding-bottom: 56px;
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: 11.5px;
-      letter-spacing: 0.18em;
-      color: var(--gold-light);
+      font-size: 11px;
+      letter-spacing: .22em;
+      color: rgba(214,200,184,.9);
     }
 
   </style>
@@ -413,73 +494,116 @@
 <div class="page">
 
 
-  <!-- ① 프로필 -->
-  <header class="header">
+  <!-- ① 헤더 ──────────────────────────── -->
+  <header class="header e1">
     <div class="brand">Hazel & Co.</div>
-    <div class="brand-rule"></div>
+    <div class="ornament">
+      <div class="orn-line"></div>
+      <div class="orn-dot"></div>
+      <div class="orn-dot lg"></div>
+      <div class="orn-dot"></div>
+      <div class="orn-line"></div>
+    </div>
     <p class="tagline">네 친구가 편안해지는 곳</p>
   </header>
 
+
+  <!-- ② 프로필 ─────────────────────────── -->
   <section class="profile">
-    <div class="avatar">
-      <img src="cocoandme.jpg" alt="Sue와 Coco">
+    <div class="avatar-shell e2">
+      <div class="avatar-inner">
+        <img src="cocoandme.jpg" alt="Sue와 Coco" loading="eager" decoding="async">
+      </div>
     </div>
-    <p class="profile-name">Sue</p>
-    <p class="profile-bio">
-      강아지 입장에서 먼저 생각해요.<br>
-      낯선 곳, 낯선 손길이 얼마나 긴장될지.<br>
-      그래서 먼저 마당에서 뛰어놀게 하고,<br>
-      천천히 시작해요.
+    <p class="profile-name e3">Sue</p>
+    <p class="profile-bio e4">
+      유럽 그루머 자격증 보유 · 가위컷 전문<br>
+      강아지가 편안해야, 미용도 잘 돼요.
     </p>
+    <div class="profile-stats e5">
+      <div class="stat">
+        <p class="stat-label">유럽 자격증</p>
+        <p class="stat-sub">그루밍 인증</p>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <p class="stat-label">1:1 케어</p>
+        <p class="stat-sub">스트레스 프리</p>
+      </div>
+    </div>
   </section>
 
-  <div class="rule"></div>
+
+  <div class="rule e5"></div>
 
 
-  <!-- ② 카카오 오픈톡 -->
-  <section class="kakao-section">
+  <!-- ③ 인스타그램 DM CTA ─────────────── -->
+  <section class="cta reveal d1">
     <p class="eyebrow">예약 · 문의</p>
-    <h2 class="kakao-heading">인스타그램 DM으로<br>편하게 연락주세요</h2>
-    <p class="kakao-sub">월–토 10:00–14:30 · 일요일 휴무</p>
-    <a href="https://ig.me/m/hazelco_spa" class="kakao-btn" target="_blank" rel="noopener">
-      <svg class="kakao-icon" viewBox="0 0 24 24" fill="currentColor">
+    <h2 class="cta-head">인스타그램 DM으로<br>편하게 연락주세요</h2>
+    <p class="cta-sub">월–토 10:00–14:30 &nbsp;·&nbsp; 일요일 휴무</p>
+    <a href="https://ig.me/m/hazelco_spa"
+       class="cta-btn"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="인스타그램 DM으로 문의하기">
+      <!-- Instagram icon -->
+      <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
       </svg>
       인스타그램 DM으로 문의하기
+      <span class="btn-arr" aria-hidden="true">→</span>
     </a>
   </section>
 
-  <!-- ③ 무료 자료: 준비 중 (자료 생기면 아래 주석 해제)
-  <div class="rule"></div>
-  <section class="download-section">
-    ...
-  </section>
-  -->
 
-  <div class="rule"></div>
+  <div class="rule reveal d2"></div>
 
-  <!-- ④ 링크 -->
-  <section class="links-section" style="padding-top: 0;">
-    <nav class="links-list">
 
-      <a href="https://www.instagram.com/hazelco_spa" class="link-item" target="_blank" rel="noopener">
+  <!-- ④ 링크 ──────────────────────────── -->
+  <section class="links reveal d3">
+    <nav class="link-list" aria-label="소셜 링크">
+
+      <a href="https://www.instagram.com/hazelco_spa"
+         class="link-row"
+         target="_blank"
+         rel="noopener noreferrer">
         <div class="link-left">
-          <span class="link-mark">✦</span>
-          <div class="link-info">
-            <p class="link-label">인스타그램</p>
-            <p class="link-sub">@hazelco_spa</p>
+          <span class="link-gem" aria-hidden="true">✦</span>
+          <div>
+            <p class="link-name">인스타그램</p>
+            <p class="link-handle">@hazelco_spa</p>
           </div>
         </div>
-        <span class="link-arrow">→</span>
+        <span class="link-arr" aria-hidden="true">→</span>
       </a>
 
     </nav>
   </section>
 
 
-  <footer class="footer">© Hazel & Co.</footer>
+  <!-- ⑤ 푸터 ──────────────────────────── -->
+  <footer class="footer reveal">© Hazel & Co.</footer>
 
 
-</div>
+</div><!-- /.page -->
+
+<script>
+  /* Scroll-reveal using IntersectionObserver */
+  (function () {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -28px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      io.observe(el);
+    });
+  })();
+</script>
 </body>
 </html>
